@@ -78,7 +78,7 @@ Game.Menu.prototype = {
     this.sound_toggle = this.game.add.button(w - 50, 50, 'sound', this.toggle_sound, this);
     this.sound_toggle.anchor.setTo(1, 0);
     this.sound_toggle.alpha = 0;
-    game.add.tween(this.sound_toggle).delay(500).to({
+    game.add.tween(this.sound_toggle).delay(500).to({ 
       alpha: 1
     }, 500).start();
   },
@@ -365,6 +365,10 @@ Game.End.prototype = {
     this.time = this.game.time.now + 500;
   },
   update: function() {
+    if (this.cursor.up.isDown && this.time < this.game.time.now) {
+      dead_s.stop();
+      game.state.start('Play');
+    }
     if (this.cursor.up.isDown && this.time < this.game.time.now) {
       dead_s.stop();
       game.state.start('Play');
